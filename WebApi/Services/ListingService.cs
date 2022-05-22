@@ -11,7 +11,7 @@
         public static List<Listing> PrepareResponse(List<Listing> Listings)
         {
             var Result = new List<Listing>();
-            var Duplicates = Listings.Take(400).Select((x, index) => new { x, index, x.Company, x.ListingId, x.Image_List, x.CategoryId }).ToLookup(x => x.Company);
+            var Duplicates = Listings.Select((x, index) => new { x, index, x.Company, x.ListingId, x.Image_List, x.CategoryId }).ToLookup(x => x.Company);
             foreach (var Duplicate in Duplicates.Where(x => x.Count() > 1))
             {
                 var start = 0;
@@ -24,7 +24,10 @@
                         Image_List = item.Image_List
                     });
                     start++;
+                    if (Result.Count == 400) break;
                 }
+                if (Result.Count == 400) break;
+
             }
             return Result;
         }

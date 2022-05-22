@@ -25,7 +25,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new Exception("Error while processing data.");
+                throw new Exception("Error in call API provided.");
             }
         }
     }
